@@ -10,7 +10,7 @@ class Banner extends React.Component {
  
   render() {
     return (
-      <div class ="banner">
+      <div className ="banner">
       <p>This is banner. We are testing out to see how it looks like </p>
 
       </div>

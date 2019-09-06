@@ -5,10 +5,9 @@ class Product < ApplicationRecord
 
 
 
-  def self.search(term)
-    if term
-      where(['lower(name) LIKE ? OR lower(description) LIKE ?', "%#{term.downcase}%", "%#{term.downcase}%"])
-    
-    end
-  end
+  # def self.search(term)
+  #   if term
+  #     where(['lower(name) LIKE ? OR lower(description) LIKE ?', "%#{term.downcase}%", "%#{term.downcase}%"])
+  #   end
+  # end
 end

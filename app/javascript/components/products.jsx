@@ -12,23 +12,24 @@ class Products extends React.Component {
       return (
         
         <div className = "item" >
-          <div className = "photo">
-            <a href = "/products">
-              <img src= {product.photo_url} />
-              <p>{product.name}</p>
+          <a href = "/products">
+            <div className = "photo">
+                <p><img src= {product.photo_url} /> <br/>
+                <strong>{product.name}</strong></p>
+            </div>
+          </a>
 
-            </a>
+          <div>
+            <p>{product.description.substring(0,50)}...</p>
+            <p>${product.price}</p>
+            <p><button>Add to cart</button></p>
           </div>
-          <p>{product.description.substring(0,50)}...</p>
-          <p>${product.price}</p>
-
-          <button>Add to cart</button>
         </div>
         
         )
       });
     return (
-      <div class = "products">
+      <div className = "products">
         {productList}
       </div>
         )

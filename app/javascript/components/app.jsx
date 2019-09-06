@@ -16,10 +16,14 @@ class App extends React.Component {
       products: [],
       list: [],
       cart:[],
-      subtotal: 0
+      subtotal: 0,
+      searchWord: null
     
 
     };
+
+    this.changeHandler = this.changeHandler.bind(this);
+    this.submitHandler = this.submitHandler.bind(this);
    
   }
 
@@ -30,7 +34,7 @@ class App extends React.Component {
 
       .then(
         (result) => {
-        	console.log(result)
+        	
           this.setState({
             isLoaded: true,
             products: result
@@ -45,11 +49,34 @@ class App extends React.Component {
         }
       )
   } 
+
+
+  changeHandler(event) {
+    console.log(event.target.value)
+    this.setState({searchWord: event.target.value})
+  }
+
+  submitHandler(event) {
+    event.preventDefault()
+    let searchWord = this.state.searchWord
+    console.log(searchWord);
+    let products = this.state.products
+    let searchResult = [];
+
+    products.map(product => {
+      if (searchWord === product.name || product.description.includes(searchWord)){
+        searchResult.push(product);
+        
+      }
+
+    })
+    this.setState({products: searchResult})
+
+  }
  	
  
   render() {
  
-  	console.log(this.state.products)
 	  	const { error, isLoaded, products} = this.state;
 	    if (error) {
 	      return <div>Error: {error.message}</div>;
@@ -58,7 +85,7 @@ class App extends React.Component {
 	    } else {
 		    return (
 		      <div>
-		      	<Header/>
+		      	<Header submitHandler={this.submitHandler} changeHandler={this.changeHandler}/>
 		      	<Banner/>
 		      	<Products products = {this.state.products}/>
 		      	<Mailer/>
