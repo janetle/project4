@@ -7,6 +7,7 @@ import Mailer from './mailer';
 import Footer from './footer';
 import Search from './search';
 import Cart from './cart';
+import Item from './item';
 
 class App extends React.Component {
   constructor() {
@@ -16,8 +17,9 @@ class App extends React.Component {
       isLoaded: false,
       searchOn: false,
       isCartClicked: false,
+      isCurrentItem: false,
       searchResult:[],
-      item:'hahaha',
+      currentItem:'',
       products: [],
       list: [],
       cart:[],
@@ -29,6 +31,7 @@ class App extends React.Component {
     this.submitHandler = this.submitHandler.bind(this);
     this.addCart = this.addCart.bind(this);
     this.showCart = this.showCart.bind(this);
+    this.selectItem= this.selectItem.bind(this);
   }
 
   componentDidMount() {
@@ -80,24 +83,43 @@ class App extends React.Component {
       searchResult: newSearchResult
     });
 
-  }
+
+  };
   addCart(event){
-    let id = event.target.id;
+
+    let id = event.target.id -1;
     let addedItem = this.state.products[id]
     let updatedCart = [...this.state.cart, addedItem];
     this.setState({cart: updatedCart});
-  }
+  };
 
   showCart(event){
     this.setState ({
+      iscurrentItem: false,
       searchOn: false,
       isCartClicked: true
     })
   };
+
+  selectItem(event){
+
+    let id = event.target.id - 1;
+    console.log(id)
+    let selectedItem = this.state.products[id]
+    console.log(selectedItem)
+    this.setState({
+      searchOn: false,
+      isCartClicked: false,
+      isCurrentItem: true,
+      currentItem: selectedItem 
+
+    });
+
+  }
  	
  
   render() {
-	  	const { error, isLoaded, products, searchOn, searchResult, cart, isCartClicked} = this.state;
+	  	const { error, isLoaded, products, searchOn, searchResult, cart, isCartClicked, currentItem, isCurrentItem} = this.state;
 	    if (error) {
 	      return <div>Error: {error.message}</div>;
 	    } else if (!isLoaded) {
@@ -113,23 +135,48 @@ class App extends React.Component {
 
           </div>
           )
-      } else if (isCartClicked){
-        return (
-           <div>
+      } else if (isCartClicked ){
+          let currentCart = {cart};
+          if (currentCart.length > 0){
+            return (
+               <div>
+                <Header cart ={cart} showCart = {this.showCart} submitHandler={this.submitHandler} changeHandler={this.changeHandler}/>
+                <Cart cart= {cart}  />
+               
+                <Footer/>
+
+              </div>
+              )
+          } else {
+            return (
+               <div>
+                <Header cart ={cart} showCart = {this.showCart} submitHandler={this.submitHandler} changeHandler={this.changeHandler}/>
+                <Banner/>
+                <p>There's no item in your cart</p>
+                <Footer/>
+
+              </div>
+              )
+              
+          }
+      } else if (isCurrentItem){
+         return(
+          <div>
             <Header cart ={cart} showCart = {this.showCart} submitHandler={this.submitHandler} changeHandler={this.changeHandler}/>
-            <Cart cart= {cart}  />
+            <Item currentItem= {currentItem}  addCart = {this.addCart} />
            
             <Footer/>
 
           </div>
           )
-      } else {
+
+      } else  {
 
 		    return (
 		      <div>
 		      	<Header cart ={cart} showCart = {this.showCart} submitHandler={this.submitHandler} changeHandler={this.changeHandler}/>
 		      	<Banner/>
-		      	<Products products = {this.state.products}  addCart = {this.addCart}/>
+		      	<Products products = {this.state.products}  addCart = {this.addCart} selectItem = {this.selectItem}/>
 		      	<Mailer/>
 		      	<Footer/>
 

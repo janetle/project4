@@ -21,6 +21,13 @@
 //   width: 100%;
 // }
 
+.fixed-top{
+    background:white;
+    position: fixed;
+    top:0;
+    width: 100%;
+
+}
 
 h2{
     color:#00849e;
@@ -99,7 +106,3 @@ button{
     background-color: #ef8354;
  }
 
-.bd-example {
-    height: 50px;
-    width: 100%;
-}

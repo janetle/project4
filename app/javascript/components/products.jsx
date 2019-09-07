@@ -6,17 +6,14 @@ class Products extends React.Component {
   render() {
     let products = this.props.products;
     let productList = products.map((product,index)=> {
-      let url = '/products/' + product.id;
+      // let url = '/products/' + product.id;
       return (
         
         <div className = "item" >
-          <a href = {url}>
-
-            <div className = "photo">
-                <p><img src= {product.photo_url} /> <br/>
-                <strong>{product.name}</strong></p>
-            </div>
-          </a>
+          <div  className = "photo">
+            <p><img src= {product.photo_url} id = {product.id} onClick ={this.props.selectItem}/> <br/>
+            <strong>{product.name}</strong></p>
+          </div>
 
           <div>
             <p>{product.description.substring(0,50)}...</p>

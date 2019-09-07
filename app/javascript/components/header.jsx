@@ -7,11 +7,11 @@ class Header extends React.Component {
   render() {
     return (
       <div>
-       <nav className="navbar navbar-light navbar-top bg-transparent ">
-          <a className="navbar-brand">Navbar</a>
+       <nav className="navbar navbar-light fixed-top bg-white ">
+          <a className="navbar-brand" href = "/">JustTea</a>
           <form className="form-inline justify-content-end">
             <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" onChange={this.props.changeHandler} />
-            <button className="btn btn-outline-success my-2 my-sm-0" onClick={this.props.submitHandler}>Search</button>
+            <img src = "/search-logo.svg" width = "40px" height = "40px" onClick={this.props.submitHandler} />
           </form>
            <a className="nav-link" onClick = {this.props.showCart}><img src = "/trolley.png" width = "40px" height = "40px"/>{this.props.cart.length}</a>
           <a className="nav-link">My Account</a>
