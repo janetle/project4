@@ -1,5 +1,5 @@
 @import "bootstrap";
-
+@import "onepage";
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
@@ -13,10 +13,13 @@
  * It is generally better to create a new file per style scope.
  *
  */
- body{
-    margin:10px;
-   
-}
+//  .navbar-top {
+//   overflow: hidden;
+  
+//   position: fixed;
+//   top: 0;
+//   width: 100%;
+// }
 
 
 h2{
@@ -95,3 +98,8 @@ h2{
 button{
     background-color: #ef8354;
  }
+
+.bd-example {
+    height: 50px;
+    width: 100%;
+}
