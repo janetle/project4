@@ -5,9 +5,48 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-teaList = ["White","Green","Oolong","Black","Pu-eh","Herbal","Jasmin"]
-teaList.each do |name|
-	Tea.create(name: name)
+teaList = [
+	[
+		"White",
+		"/white-tea.jpeg",
+		"White tea is harvested before the tea plant’s leaves open fully, when the young buds are still covered by fine white hairs."
+	],
+	[
+		"Green",
+		"/green-tea.jpeg",
+		" Green tea is high in antioxidants that can improve the function of your body."
+	],
+	[
+		"Oolong",
+		"/Oolong-tea.jpeg",
+		"Oolong is neither a black tea nor a green tea; it falls into its own category of tea. "
+	],
+	[
+		"Black",
+		"/black-tea.jpeg",
+		"Sun tea, sweet tea, iced tea, afternoon tea, English Breakfast, Earl Grey… are typically made using black tea leaves."
+	],
+	[
+		"Pu-erh",
+		"/puh-er.jpeg",
+		"Tea lovers with a taste for exotic varieties may be familiar with pu-erh tea, a brew prized for its rich flavor."
+
+	],
+	[
+		"Herbal",
+		"/herbal-tea.jpeg",
+		"Herbal tea is essentially anything that doesn’t contain leaves from the tea plant, Camellia sinensis." 
+	],
+	[
+		"Jasmine",
+		"/jasmine-tea.jpeg",
+		"Jasmine tea is a type of tea, scented with the aroma of blossoms from the jasmine plant."
+	]
+
+]
+
+teaList.each do |name,photo_url,description|
+	Tea.create(name: name, photo_url: photo_url, description: description)
 	end
 
 types = ["Scented & Blende", "Traditional",

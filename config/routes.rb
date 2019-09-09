@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'teas/index'
   devise_for :users
   get 'onepage/index'
   resources :products

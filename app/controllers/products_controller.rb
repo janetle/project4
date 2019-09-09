@@ -4,8 +4,15 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
+    # @products = Product.all
+
     @products = Product.all
-      
+    @products.as_json(include: { tea: {only: [:id, :name]}})
+
+    # # respond_to do |format|
+    # #   format.json { render json: @product.errors, status: :unprocessable_entity }
+    # # end
+
   end
 
   # GET /products/1

@@ -1,4 +1,5 @@
 @import "bootstrap";
+
 @import "onepage";
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
@@ -13,34 +14,38 @@
  * It is generally better to create a new file per style scope.
  *
  */
-//  .navbar-top {
-//   overflow: hidden;
-  
-//   position: fixed;
-//   top: 0;
-//   width: 100%;
+
+
+
+
+// h2{
+//     color:#00849e;
+//     font-family: 'Roboto Condensed', sans-serif;
 // }
-
-.fixed-top{
-    background:white;
-    position: fixed;
-    top:0;
-    width: 100%;
-
-}
-
-h2{
-    color:#00849e;
-    font-family: 'Roboto Condensed', sans-serif;
-}
 
 
 /*---NAVBAR STARTS-----------------------*/
+            /*-- Header --*/
+.header {
+    // display:block;
+    position: fixed;
+    width:100%;
+    top:0;
+
+   
+    .navbar-one{
+        height: 70px;
+        background: green;
+    }
+    
+}
 
 .navbar{
-    padding-bottom:0;
-    height:70px;
-    background: rgba(0,0,0,0);
+    // padding-bottom:20px;
+    padding-top: 0px;
+    height:50px;
+     font-family: 'Roboto thin', sans-serif;
+
 }
 
 .nav-link{
@@ -48,31 +53,32 @@ h2{
     // color: white !important;
     // text-shadow: 1px 1px 5px #0d606d;
     font-size: 17px;
-    font-weight:500;
+    font-weight:700;
 }
 
 .nav-link:hover{
-    color: orange !important;
+    color: green !important;
 }
 
 .products {
 	display:flex;
 	flex-wrap:  wrap;
     justify-content: space-around;
-    margin-right: 50px;
-    margin-left: 50px;
-   
+    // padding-left: 130px;
+    // padding-right:130px;
+    
 
 }
 .item {
 	// border:1px solid #d3d3d3;
     background-color: white;
-    width:250px;
-    margin:10px;
+    width:300px;
+    height:500px;
+    padding:10px;
      p {
     text-align: center;
     font-family: 'Roboto-thin';
-     margin-bottom: 0px;
+     margin-bottom: 10px;
     }
     margin-bottom: 40px;
 
@@ -95,8 +101,8 @@ h2{
 
  img{
     width:100%;
-    height:160px;
-    object-fit:cover;
+    height:300px;
+    object-fit:contain;
     object-position: center;
  };
 
@@ -105,4 +111,114 @@ h2{
 button{
     background-color: #ef8354;
  }
+ 
+/*=======About=========*/
+.tea-wrapper {
+    width:100%;
+    height: 600px;
+    padding: 80px 50px;
+   
+    background-color: #f2f2f2;
+    
 
+}
+.about{
+     display:flex;
+     text-align:center;
+     padding:40px;
+     justify-content: space-around
+
+}
+p.caption{
+    font-weight: 500;
+    font-size: larger;
+    padding-top:10px;
+    color:#626c6d;
+
+}
+p.tea-desc {
+    font-family: 'Open Sans', sans-serif;
+
+}
+.heading {
+    font-size: 50px;
+    font-family: 'Roboto Thin', sans-serif;
+    font-weight: 20;
+    text-align: center;
+    color:#626c6d;
+
+}
+.just-tea{
+    text-alight:center;
+    width:20%;
+    margin:10px;
+
+}
+
+/* =========Mailer ===========*/
+.mailer {
+    width: 100%;
+    height:150px;
+}
+p.mailer-heading {
+    color:#626c6d;
+    font-size: 30px;
+    font-weight: 500px;
+    text-align: center;
+    padding-top:20px;
+}
+p.mailer-text {
+    text-align: center;
+}
+input.mailer-input{
+    width: 300px;
+};
+
+
+
+/*=======Banner====*/
+
+.banner{
+    width:100%;
+    height:60vh;
+    background-image: url("/newTea.jpeg");
+    background-size: cover;
+    background-position:center;
+    margin-top:100px; 
+    margin-bottom:20px;
+    color: white;
+ }
+ .banner-heading {
+    font-size: 60px;
+    padding-bottom:10px;
+    position:relative;
+    top : 30px;
+    left: 30px;
+
+ }
+ .banner-text {
+    font-size: 30px;
+    position:relative;
+    top : 60px;
+    left: 30px;
+
+ };
+
+ /*============Cart =========*/
+ .cart {
+    width: 60%;
+    margin: 100px auto;
+
+    img {
+        width: 100px;
+        height: 100px;
+    }
+    table td {
+        vertical-align: middle !important;
+        // text-align: center;
+    }
+ }
+
+ table.haha {
+    border: 2px solid pink;
+ }

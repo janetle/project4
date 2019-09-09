@@ -11,7 +11,7 @@ class Footer extends React.Component {
   render() {
     return (
       <div>
-      	copyright @ JustTEA
+      	copyright @ TeaLovers
       </div>
     );
   }
