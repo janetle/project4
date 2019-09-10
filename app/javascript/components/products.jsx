@@ -47,6 +47,7 @@ class Products extends React.Component {
     
     return (
       <div>
+      <h2 className = "product-heading">Our best sellers</h2>
         <Slider className = "products" {...settings}>
 
           {productList}

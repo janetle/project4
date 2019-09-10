@@ -14,8 +14,8 @@ class Item extends React.Component {
 						<p><strong>{this.props.currentItem.name}</strong></p>
 						<p> ${this.props.currentItem.price}</p>
 						<div>
-							<select onChange={this.props.selectOnChange}>\
-								<option>Select Quantity</option>
+							<select onChange={this.props.selectOnChange}>
+							    <option>Select Quantity</option>
 								<option value="1">1</option>
 								<option value="2">2</option>
 								<option value="3">3</option>
@@ -39,8 +39,6 @@ class Item extends React.Component {
 					  
 					</ul>
 				</div>
-
-
 
 				<div className = "desc">{this.props.currentItem.description}</div>
 				<div>Similar taste</div>

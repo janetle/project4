@@ -10,7 +10,8 @@ class Header extends React.Component {
         
         <nav className="navbar navbar-one  bg-white">
           <a className="navbar-brand" onClick = {this.props.home}>TeaLovers</a>
-           <a className="nav-link" onClick = {this.props.selectTea}>Tea</a>
+           <a className="nav-link" onClick = {this.props.selectTea}>All Categories</a>
+           <a className="nav-link" onClick = {this.props.allProducts}>Products</a>
          
             <form className="form-inline justify-content-end">
               <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" onChange={this.props.changeHandler} />

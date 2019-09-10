@@ -3,6 +3,7 @@ import React from 'react';
 import Header from './header';
 import Banner from './banner';
 import Products from './products';
+import AllProducts from './showAll';
 import Mailer from './mailer';
 import Footer from './footer';
 import Search from './search';
@@ -23,6 +24,7 @@ class App extends React.Component {
       isCurrentItem: false,
       isTeaClicked: false,
       isCurrentTea: false,
+      isAllProduct: false,
       tea: [],
       currentTea: "",
       searchResult:[],
@@ -46,6 +48,7 @@ class App extends React.Component {
     this.selectOnChange = this.selectOnChange.bind(this);
     this.removeItem = this.removeItem.bind(this);
     this.changeQuantity = this.changeQuantity.bind(this);
+    this.allProducts = this.allProducts.bind(this);
   }
 
   componentDidMount() {
@@ -94,6 +97,7 @@ class App extends React.Component {
       isCartClicked: false,
       isCurrentItem: false,
       isTeaClicked: false,
+      isAllProduct: false,
       isCurrentTea: false
     })
   };
@@ -104,6 +108,7 @@ class App extends React.Component {
       isCartClicked: false,
       isCurrentItem: false,
       isCurrentTea: false,
+      isAllProduct: false,
       isTeaClicked: true
 
     })
@@ -134,6 +139,7 @@ class App extends React.Component {
       isCurrentItem: false,
       isCurrentTea: false,
       isTeaClicked: true,
+      isAllProduct: false,
       searchResult: newSearchResult
     });
 
@@ -142,11 +148,31 @@ class App extends React.Component {
     let id = event.target.id -1;
     let addedItem = this.state.products[id];
     let quantity = this.state.quantity;
-    console.log(quantity)
-    this.setState({ 
-      cart: [{product: addedItem, quantity:quantity}, ...this.state.cart]
-    });
-  };
+    let cart = this.state.cart;
+    // console.log(cart)
+    // let checkCart = ()=> {
+    //   if (cart.length > 0){
+    //     for (let i = 0; i < cart.length; i ++){
+    //       console.log(id)
+    //       if (cart[i].product.id === id + 1){
+    //         let currentCart = this.state.cart
+    //         currentCart[i].quantity = cart[i].quantity + 1;
+    //         this.setState ({cart: currentCart});
+    //         return true;
+    //       } 
+    //     };
+    //   } else {return false};;
+    // };
+    // let m = checkCart();
+    // console.log(m)
+    
+    // if(m === false) {
+      this.setState({
+        cart: [{product: addedItem, quantity:quantity}, ...this.state.cart] 
+      })
+    // };
+  }
+
 
   showCart(event){
     this.setState ({
@@ -155,6 +181,7 @@ class App extends React.Component {
       isCurrentItem: false,
       isCurrentTea: false,
       isTeaClicked: false,
+      isAllProduct: false,
       isCartClicked: true
     })
   };
@@ -169,6 +196,7 @@ class App extends React.Component {
       searchOn: false,
       isCartClicked: false,
       isCurrentItem: true,
+      isAllProduct: false,
       currentItem: selectedItem 
 
     });
@@ -194,41 +222,49 @@ class App extends React.Component {
       isCurrentItem: false,
       isTeaClicked: false,
       isCurrentTea: true,
+      isAllProduct: false,
       currentTea: selectedTea
     })
   }
-
   selectOnChange(event) {
-    // console.log(event.target.value)
     let quantity = event.target.value;
-    // console.log(quantity);
     this.setState ({quantity: quantity})
   };
 
   removeItem(event) {
     let id = event.target.id;
-    // console.log(id);
     this.state.cart.splice(id,1);
     this.setState ({ cart: this.state.cart});
     // console.log("removing")
   };
 
   changeQuantity(event){
-    console.log(event.target.id)
-    console.log("entered change quatity")
-    // console.log(event.target.value)
+    
     let newQuantity = event.target.value;
     let id = event.target.id;
-    console.log(newQuantity);
     let currentCart = this.state.cart;
     currentCart[id].quantity = newQuantity;
 
     this.setState({
       cart: currentCart
     })
+  };
+
+  allProducts(event) {
+    event.preventDefault(); 
+    this.setState ({
+      searchOn: false,
+      isCartClicked: false,
+      isCurrentItem: false,
+      isCurrentTea: false,
+      isTeaClicked: false,
+      isCartClicked: false,
+      isAllProduct: true,
+
+    })
+
   }
  	
- 
   render() {
 	  	const { 
         error, 
@@ -237,7 +273,8 @@ class App extends React.Component {
         searchOn, 
         searchResult, 
         cart, 
-        isCartClicked, 
+        isCartClicked,
+        isAllProduct,
         currentItem,
         currentTea,
         isCurrentTea, 
@@ -274,80 +311,91 @@ class App extends React.Component {
             return (
                <div>
                 <Header 
+                
                 home = {this.home} cart ={cart} 
                 showCart = {this.showCart} 
                 submitHandler={this.submitHandler} 
                 changeHandler={this.changeHandler}
-                selectTea ={this.selectTea} />
+                selectTea ={this.selectTea} 
+                allProducts = { this.allProducts} />
                 <Cart cart= {cart} removeItem = {this.removeItem}
-                      changeQuantity = {this.changeQuantity} />
+                      changeQuantity = {this.changeQuantity}
+                      allProducts = {this.allProducts} />
                
                 <Footer/>
 
               </div>
               )
-          // } else {
-          //   let n = currentCart.length;
-          //   console.log(n);
-          //   return (
-          //      <div>
-          //       <Header home = {this.home} cart ={cart} showCart = {this.showCart} submitHandler={this.submitHandler} changeHandler={this.changeHandler}/>
-
-          //       <Banner/>
-          //       <p>There's no item in your cart</p>
-          //       <Footer/>
-
-          //     </div>
-          //     )
-              
-          // }
       } else if (isCurrentItem){
-         return(
-          <div>
-            <Header 
+          return(
+            <div>
+              <Header 
                 home = {this.home} cart ={cart} 
                 showCart = {this.showCart} 
                 submitHandler={this.submitHandler} 
                 changeHandler={this.changeHandler}
-                selectTea ={this.selectTea} />
-            <Item 
+                selectTea ={this.selectTea} 
+                allProducts = { this.allProducts} />
+              <Item 
                 currentItem= {currentItem}  
                 addCart = {this.addCart} 
                 selectOnChange = {this.selectOnChange}/>
-           
-            <Footer/>
-
+              <Footer/>
           </div>
           )
 
       } else if(isTeaClicked){
           return(
             <div>
-            <Header 
+              <Header 
                 home = {this.home} cart ={cart} 
                 showCart = {this.showCart} 
                 submitHandler={this.submitHandler} 
                 changeHandler={this.changeHandler}
-                selectTea ={this.selectTea} />
+                selectTea ={this.selectTea} 
+                allProducts = { this.allProducts} />
               <Tea tea ={tea} showCurrentTea = {this.showCurrentTea}/>
 
             </div>
             )
       } else if(isCurrentTea) {
-        console.log("CURRENT TEA", currentTea);
           return (
             <div>
-               <Header 
+              <Header 
                 home = {this.home} cart ={cart} 
                 showCart = {this.showCart} 
                 submitHandler={this.submitHandler} 
                 changeHandler={this.changeHandler}
-                selectTea ={this.selectTea} />
-                <CurrentTea selectItem = {this.selectItem} currentTea = {currentTea} addCart = {this.addCart}/>
-                <Footer/>
+                selectTea ={this.selectTea} 
+                allProducts = { this.allProducts} />
+              <CurrentTea selectItem = {this.selectItem} 
+                currentTea = {currentTea} addCart = {this.addCart}/>
+              <Footer/>
 
             </div>
             )
+      } else if(isAllProduct){
+          return(
+            <div >
+              <Header 
+                  home = {this.home} cart ={cart} 
+                  showCart = {this.showCart} 
+                  submitHandler={this.submitHandler} 
+                  changeHandler={this.changeHandler}
+                  selectTea ={this.selectTea} 
+                  allProducts = { this.allProducts} />
+              
+
+              <AllProducts
+                  products = {this.state.products}  
+                  addCart = {this.addCart} 
+                  selectItem = {this.selectItem}
+                  selectOnChange= {this.selectOnChange} />
+           
+              <Footer/>
+            </div>
+            )
+
       } else {
 
 		    return (
@@ -357,7 +405,8 @@ class App extends React.Component {
                 showCart = {this.showCart} 
                 submitHandler={this.submitHandler} 
                 changeHandler={this.changeHandler}
-                selectTea ={this.selectTea} />
+                selectTea ={this.selectTea} 
+                allProducts = { this.allProducts} />
 		      	<Banner/>
             <div className= "product-container">
   		      	<Products 

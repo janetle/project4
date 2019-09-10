@@ -31,29 +31,23 @@
     position: fixed;
     width:100%;
     top:0;
+    z-index: 1;
 
-   
-    .navbar-one{
-        height: 70px;
-        background: green;
-    }
     
 }
 
 .navbar{
     // padding-bottom:20px;
     padding-top: 0px;
-    height:50px;
+    height:60px;
      font-family: 'Roboto thin', sans-serif;
 
 }
 
 .nav-link{
-    // border:1px solid red;
-    // color: white !important;
-    // text-shadow: 1px 1px 5px #0d606d;
-    font-size: 17px;
-    font-weight:700;
+   
+    font-size: 20px;
+    font-weight:300;
 }
 
 .nav-link:hover{
@@ -62,6 +56,11 @@
 .product-container{
     width: 90%;
     margin: 20px auto;
+}
+.product-heading {
+    font-family: 'Roboto-thin';
+    color:#626c6d;
+
 }
 
 .products {
@@ -77,11 +76,14 @@
 	// border:1px solid #d3d3d3;
     background-color: white;
     width:300px;
-    height:500px;
-    padding:10px;
+    height:600px;
+    padding-top:30px;
+
      p {
     text-align: center;
     font-family: 'Roboto-thin';
+    padding-left:10px;
+    padding-right:10px;
      margin-bottom: 10px;
     }
     margin-bottom: 40px;
@@ -185,10 +187,10 @@ input.mailer-input{
 .banner{
     width:100%;
     height:60vh;
-    background-image: url("/newTea.jpeg");
+    background-image: url("/tea-header-02.png");
     background-size: cover;
     background-position:center;
-    margin-top:100px; 
+    margin-top:70px; 
     margin-bottom:20px;
     color: white;
  }
@@ -220,7 +222,14 @@ input.mailer-input{
     table td {
         vertical-align: middle !important;
         // text-align: center;
+
     }
+    a{
+        color:#007bff;;
+    }
+ }
+ .back-to-shopping {
+    color:blue;
  }
 
  table.haha {
@@ -230,3 +239,22 @@ input.mailer-input{
     display:flex;
     justify-content: space-between;
  }
+/*=========all products===========*/
+.product-all {
+    width: 70%;
+    margin: 100px auto;
+    // padding:20px;
+
+
+}
+.all {
+    display:flex;
+    justify-content:space-between;
+    alight-content: center;
+    flex-wrap:  wrap;
+    .item{
+        padding: 20px;
+    }
+
+}
+ 

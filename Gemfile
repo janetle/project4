@@ -17,6 +17,7 @@ gem 'webpacker', '~> 4.0'
 gem 'jbuilder', '~> 2.7'
 #bootstrap4
 gem 'bootstrap', '~> 4.3.1'
+gem "comfy_bootstrap_form", "~> 4.0.0"
 gem 'jquery-rails'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
