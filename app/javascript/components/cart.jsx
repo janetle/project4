@@ -3,15 +3,25 @@ import React from 'react';
 import Table from 'react-bootstrap/Table';
 class Cart extends React.Component {
   
+
+
+  // changeQuatity(event){
+  //   let newQuantity = event.target.value;
+  //   this.setState ({
+  //     quantity: newQuantity;
+  //   })
+
+  // }
   render() {
     let products = this.props.cart;
+    console.log(products)
 
     let subtotal = 0;
     let gst = 0;
     let total = 0;
     let delivery = 10;
     let productList = products.map((product,index)=> {
-
+      console.log(index)
       let price = parseFloat(product.product.price);
       let quantity = parseInt(product.quantity);
       let amount = price * quantity;
@@ -23,18 +33,18 @@ class Cart extends React.Component {
       
       return (
         <tr>
-           <td><img src= {product.product.photo_url} /></td>
+           <td><img src = {product.product.photo_url} /></td>
            <td>{product.product.name}</td>
            <td>{quantity}
-              <select onChange={this.props.selectOnChange}>\
+              <select onChange={this.props.changeQuantity} id={index}>
                 
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
+                <option  value="1">1</option>
+                <option  value="2">2</option>
+                <option  value="3">3</option>
+                <option  value="4">4</option>
               </select></td>
            <td>${price}</td>
-           <td><button id = {product.id} onClick = {this.props.removeItem}>Remove</button></td>
+           <td><button id = {index} onClick = {this.props.removeItem}>Remove</button></td>
            <td>${amount}</td>
         </tr>
         )
@@ -42,6 +52,7 @@ class Cart extends React.Component {
     return (
       <div className = "cart">
         <h1 className = "cart-heading">Shopping Cart</h1>
+        <p>Free delivery for purchase above $40.</p>
         <Table  >
           <thead>
             <tr>
@@ -57,7 +68,6 @@ class Cart extends React.Component {
           <tbody>
              {productList}
             
-        
              <tr>
                <td colSpan="3"></td>
                <td colSpan="2">Subtotal:</td>
@@ -67,7 +77,7 @@ class Cart extends React.Component {
               <tr>
                <td colSpan="3"></td>
                <td colSpan="2">GST (7%): </td>
-               <td>${gst}</td>
+               <td>${gst.toFixed(2)}</td>
                <td></td>
              </tr>
               <tr>
@@ -84,7 +94,11 @@ class Cart extends React.Component {
              </tr>
          
            </tbody>
-        </Table>   
+        </Table>  
+        <div className = "checkout-option">
+          <a href = "/">  ← Continue shopping</a>
+          <a href = "/charges/new">Proceed to checkout → </a>
+        </div> 
       </div>
         )
   }

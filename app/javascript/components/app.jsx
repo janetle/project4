@@ -45,6 +45,7 @@ class App extends React.Component {
     this.home= this.home.bind(this);
     this.selectOnChange = this.selectOnChange.bind(this);
     this.removeItem = this.removeItem.bind(this);
+    this.changeQuantity = this.changeQuantity.bind(this);
   }
 
   componentDidMount() {
@@ -205,12 +206,26 @@ class App extends React.Component {
   };
 
   removeItem(event) {
-    
     let id = event.target.id;
-    console.log(id);
+    // console.log(id);
     this.state.cart.splice(id,1);
     this.setState ({ cart: this.state.cart});
-    console.log("removing")
+    // console.log("removing")
+  };
+
+  changeQuantity(event){
+    console.log(event.target.id)
+    console.log("entered change quatity")
+    // console.log(event.target.value)
+    let newQuantity = event.target.value;
+    let id = event.target.id;
+    console.log(newQuantity);
+    let currentCart = this.state.cart;
+    currentCart[id].quantity = newQuantity;
+
+    this.setState({
+      cart: currentCart
+    })
   }
  	
  
@@ -264,7 +279,8 @@ class App extends React.Component {
                 submitHandler={this.submitHandler} 
                 changeHandler={this.changeHandler}
                 selectTea ={this.selectTea} />
-                <Cart cart= {cart} removeItem = {this.removeItem} />
+                <Cart cart= {cart} removeItem = {this.removeItem}
+                      changeQuantity = {this.changeQuantity} />
                
                 <Footer/>
 
