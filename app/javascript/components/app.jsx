@@ -359,10 +359,13 @@ class App extends React.Component {
                 changeHandler={this.changeHandler}
                 selectTea ={this.selectTea} />
 		      	<Banner/>
-		      	<Products 
-                products = {this.state.products}  
-                addCart = {this.addCart} 
-                selectItem = {this.selectItem} />
+            <div className= "product-container">
+  		      	<Products 
+                  products = {this.state.products}  
+                  addCart = {this.addCart} 
+                  selectItem = {this.selectItem}
+                  selectOnChange= {this.selectOnChange} />
+            </div>
             <About />
 		      	<Mailer/>
 		      	<Footer/>
