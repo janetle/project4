@@ -15,7 +15,7 @@ class AllProducts extends React.Component {
             </div>
 
             <div>
-              <p>{product.description.substring(0,50)}...</p>
+              <p>{product.description.substring(0,40)}...</p>
               <p>${product.price}</p>
               <p>
                 <select onChange={this.props.selectOnChange}>\

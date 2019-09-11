@@ -80,6 +80,8 @@ GEM
       xpath (~> 3.2)
     childprocess (2.0.0)
       rake (< 13.0)
+    comfy_bootstrap_form (4.0.6)
+      rails (>= 5.0.0)
     concurrent-ruby (1.1.5)
     crass (1.0.4)
     devise (4.7.0)
@@ -237,6 +239,7 @@ DEPENDENCIES
   bootstrap (~> 4.3.1)
   byebug
   capybara (>= 2.15)
+  comfy_bootstrap_form (~> 4.0.0)
   devise
   jbuilder (~> 2.7)
   jquery-rails

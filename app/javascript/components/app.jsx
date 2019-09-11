@@ -29,6 +29,7 @@ class App extends React.Component {
       currentTea: "",
       searchResult:[],
       currentItem:'',
+      similarTaste:[],
       products: [],
       list: [],
       cart:[],
@@ -145,8 +146,9 @@ class App extends React.Component {
 
   };
   addCart(event){ 
-    let id = event.target.id -1;
-    let addedItem = this.state.products[id];
+    let id = event.target.id;
+    let addedItem = this.state.products.find(x => x.id === parseInt(id));
+    
     let quantity = this.state.quantity;
     let cart = this.state.cart;
     // console.log(cart)
@@ -187,17 +189,28 @@ class App extends React.Component {
   };
 
   selectItem(event){             //show single item
-
-    let id = event.target.id - 1;
-    console.log(id)
-    let selectedItem = this.state.products[id];
-    console.log(selectedItem)
+    console.log("original product id: ", event.target.id)
+    let id = event.target.id;
+    let selectedItem = this.state.products.find(x => x.id === parseInt(id));
+    let similarTaste = [];
+    let teaId = selectedItem.tea.id
+    console.log("tea id: ", teaId)
+    this.state.products.map(product => {
+      if (product.tea.id === teaId){
+        similarTaste.push(product)
+      }
+    })
+    console.log(similarTaste)
     this.setState({
       searchOn: false,
       isCartClicked: false,
       isCurrentItem: true,
+      isCurrentTea: false,
+      isTeaClicked: false,
       isAllProduct: false,
-      currentItem: selectedItem 
+      isCartClicked: false,
+      currentItem: selectedItem ,
+      similarTaste: similarTaste
 
     });
 
@@ -280,6 +293,7 @@ class App extends React.Component {
         isCurrentTea, 
         isCurrentItem,
         isTeaClicked,
+        similarTaste,
         tea
       } = this.state;
 
@@ -296,22 +310,19 @@ class App extends React.Component {
                 submitHandler={this.submitHandler} 
                 changeHandler={this.changeHandler}
                 selectTea ={this.selectTea} />
+            
             <Banner/>
             <Search  addCart = {this.addCart} 
                      searchResult = {searchResult}/>
+           
             <Mailer/>
             <Footer/>
-
           </div>
-          )
-      } else if (isCartClicked ){
-          // let currentCart = {cart};
-          // alert(currentCart);
-          // if (currentCart.length > 0){
+        );
+      } else if (isCartClicked){
             return (
                <div>
                 <Header 
-                
                 home = {this.home} cart ={cart} 
                 showCart = {this.showCart} 
                 submitHandler={this.submitHandler} 
@@ -321,11 +332,11 @@ class App extends React.Component {
                 <Cart cart= {cart} removeItem = {this.removeItem}
                       changeQuantity = {this.changeQuantity}
                       allProducts = {this.allProducts} />
-               
                 <Footer/>
 
               </div>
-              )
+              );
+         
       } else if (isCurrentItem){
           return(
             <div>
@@ -337,13 +348,15 @@ class App extends React.Component {
                 selectTea ={this.selectTea} 
                 allProducts = { this.allProducts} />
               <Item 
-                currentItem= {currentItem}  
+                currentItem= {currentItem} 
+                similarTaste = {similarTaste} 
                 addCart = {this.addCart} 
+                selectItem = {this.selectItem}
                 selectOnChange = {this.selectOnChange}/>
+                
               <Footer/>
           </div>
-          )
-
+          );
       } else if(isTeaClicked){
           return(
             <div>
@@ -357,7 +370,7 @@ class App extends React.Component {
               <Tea tea ={tea} showCurrentTea = {this.showCurrentTea}/>
 
             </div>
-            )
+            );
       } else if(isCurrentTea) {
           return (
             <div>
@@ -371,9 +384,8 @@ class App extends React.Component {
               <CurrentTea selectItem = {this.selectItem} 
                 currentTea = {currentTea} addCart = {this.addCart}/>
               <Footer/>
-
             </div>
-            )
+            );
       } else if(isAllProduct){
           return(
             <div >
@@ -394,7 +406,7 @@ class App extends React.Component {
            
               <Footer/>
             </div>
-            )
+            );
 
       } else {
 
@@ -421,8 +433,10 @@ class App extends React.Component {
 
 		      </div>
 		    );
-	  	}
-	}
-}
+	  	};
+    }
+}	 
+
+
 
 export default App;

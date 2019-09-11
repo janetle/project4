@@ -8,7 +8,7 @@ class Header extends React.Component {
     return (
       <div class ="header">
         
-        <nav className="navbar navbar-one  bg-white">
+        <nav className="navbar navbar-one ">
           <a className="navbar-brand" onClick = {this.props.home}>TeaLovers</a>
            <a className="nav-link" onClick = {this.props.selectTea}>All Categories</a>
            <a className="nav-link" onClick = {this.props.allProducts}>Products</a>

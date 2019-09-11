@@ -1,4 +1,39 @@
 import React from 'react';
+import Slider from "react-slick";
+class SimilarTaste extends React.Component{
+	render(){
+		const settings = {
+	      dots: true,
+	      infinite: true,
+	      speed: 500,
+	      slidesToShow: 3,
+	      slidesToScroll: 3
+	    };
+	    let similarTaste = this.props.similarTaste;
+        let similarList = similarTaste.map((product,index)=> {
+	        return (
+	          	<div className = "similarTaste" >
+	              <div  className = "photo-similar">
+	                <p><img src= {product.photo_url} id = {product.id} onClick ={this.props.selectItem}/> <br/>
+	                <strong>{product.name}</strong></p>
+	               
+	              </div>
+	            </div>
+	          )
+        });
+
+	 return(
+	 	<div>
+      		<h2 className = "product-heading">Similar tastes</h2>
+        <Slider className = "products" {...settings}>
+
+          {similarList}
+       
+        </Slider>
+      </div>
+			)
+	}
+}
 
 class Item extends React.Component {
 	
@@ -31,18 +66,12 @@ class Item extends React.Component {
 					<ul class="nav nav-tabs">
 					  <li class="nav-item">
 					    <a class="nav-link active" href="#">Description</a>
-					   
 					  </li>
-					  <li class="nav-item">
-					    <a class="nav-link" href="#">Review</a>
-					  </li>
-					  
 					</ul>
 				</div>
 
 				<div className = "desc">{this.props.currentItem.description}</div>
-				<div>Similar taste</div>
-
+				<SimilarTaste similarTaste = {this.props.similarTaste} selectItem = {this.props.selectItem}/>
 			
 			</div>
 			)

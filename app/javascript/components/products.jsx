@@ -16,8 +16,10 @@ class Products extends React.Component {
     let products = this.props.products;
     
       let productList = products.map((product,index)=> {
+
         // let url = '/products/' + product.id;
         return (
+
           
           <div className = "item" >
               <div  className = "photo">
@@ -26,17 +28,9 @@ class Products extends React.Component {
               </div>
 
             <div>
-              <p>{product.description.substring(0,50)}...</p>
+              <p class = "item-desc">{product.description.substring(0,40)}...</p>
               <p>${product.price}</p>
-              <p>
-                <select onChange={this.props.selectOnChange}>\
-                  <option>Select Quantity</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                </select>
-              </p>
+              
               <p><button id = {product.id} onClick ={this.props.addCart}>Add to cart</button></p>
             </div>
           </div>
@@ -48,7 +42,7 @@ class Products extends React.Component {
     return (
       <div>
       <h2 className = "product-heading">Our best sellers</h2>
-        <Slider className = "products" {...settings}>
+        <Slider  {...settings}>
 
           {productList}
        

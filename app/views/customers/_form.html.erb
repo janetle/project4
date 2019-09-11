@@ -1,0 +1,40 @@
+<%= bootstrap_form_with(model: customer, local: true) do |form| %>
+  <% if customer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
+
+      <ul>
+        <% customer.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class = "join">
+
+    <p class = "title"><%= form.text_field :title %></p>
+    <p class = "firstName"><%= form.text_field :firstName %></p>
+    <p class = "lastName"><%= form.text_field :lastName %></p>
+  </div>
+ 
+
+  <div >
+    <%= form.text_area :address %>
+  </div>
+
+  <div class = "join">
+    <%= form.number_field :postalCode %>
+    <%= form.text_field :city %>
+  </div>
+
+  <div class = "join">
+    <%= form.text_field :email %>
+    <%= form.number_field :phone %>
+  </div>
+
+  
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

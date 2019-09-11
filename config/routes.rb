@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :customers
   get 'charges/new'
   get 'charges/create'
   get 'teas/index'
