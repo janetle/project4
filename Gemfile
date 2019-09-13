@@ -31,7 +31,8 @@ gem 'jquery-rails'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 # devise for authentication
-gem 'devise'
+gem "devise", ">= 4.7.1"
+
 # stripe for payment
 gem 'stripe'
 group :development, :test do
