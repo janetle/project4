@@ -18,7 +18,7 @@ class Header extends React.Component {
               <img src = "/search-logo.svg" width = "35px" height = "35px" onClick={this.props.submitHandler} />
             </form>
              <a className="nav-link" onClick = {this.props.showCart}><img src = "/trolley.png" width = "40px" height = "40px"/>{this.props.cart.length}</a>
-            <a className="nav-link">My Account</a>
+           
         
         </nav>
        

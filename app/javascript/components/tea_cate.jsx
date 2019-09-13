@@ -6,6 +6,7 @@ class CurrentTea extends React.Component {
   render() {
     console.log(this.props);
     let tea = this.props.currentTea;
+    console.log(tea.name)
     let teaList = tea.map((product,index)=> {
       
       return (

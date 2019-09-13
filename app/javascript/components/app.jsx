@@ -313,6 +313,7 @@ class App extends React.Component {
             
             <Banner/>
             <Search  addCart = {this.addCart} 
+                      selectItem = {this.selectItem}
                      searchResult = {searchResult}/>
            
             <Mailer/>
