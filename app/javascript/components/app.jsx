@@ -13,10 +13,9 @@ import Tea from './tea';
 import CurrentTea from './tea_cate';
 import About from './about';
 
-class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
+
+
+const initalState = {
       error: null,
       isLoaded: false,
       searchOn: false,
@@ -38,6 +37,13 @@ class App extends React.Component {
       quantity: 1
     
     };
+
+
+class App extends React.Component {
+  constructor() {
+
+    super();
+    this.state = initalState;
     this.changeHandler = this.changeHandler.bind(this);
     this.submitHandler = this.submitHandler.bind(this);
     this.addCart = this.addCart.bind(this);
@@ -51,7 +57,7 @@ class App extends React.Component {
     this.changeQuantity = this.changeQuantity.bind(this);
     this.allProducts = this.allProducts.bind(this);
   }
-
+  
   componentDidMount() {
     fetch('/products.json')         //fetch all teas
       .then(res => res.json())
@@ -91,15 +97,15 @@ class App extends React.Component {
           ))
   } 
 
-  home(event){                //back to main page
+  home(event) {                //back to main page
     
     this.setState({
-      searchOn: false,
-      isCartClicked: false,
-      isCurrentItem: false,
-      isTeaClicked: false,
-      isAllProduct: false,
-      isCurrentTea: false
+          searchOn: false,
+          isCartClicked: false,
+          isCurrentItem: false,
+          isTeaClicked: false,
+          isAllProduct: false,
+          isCurrentTea: false
     })
   };
   
@@ -151,29 +157,13 @@ class App extends React.Component {
     
     let quantity = this.state.quantity;
     let cart = this.state.cart;
-    // console.log(cart)
-    // let checkCart = ()=> {
-    //   if (cart.length > 0){
-    //     for (let i = 0; i < cart.length; i ++){
-    //       console.log(id)
-    //       if (cart[i].product.id === id + 1){
-    //         let currentCart = this.state.cart
-    //         currentCart[i].quantity = cart[i].quantity + 1;
-    //         this.setState ({cart: currentCart});
-    //         return true;
-    //       } 
-    //     };
-    //   } else {return false};;
-    // };
-    // let m = checkCart();
-    // console.log(m)
-    
-    // if(m === false) {
+    {
       this.setState({
         cart: [{product: addedItem, quantity:quantity}, ...this.state.cart] 
       })
     // };
   }
+};
 
 
   showCart(event){
