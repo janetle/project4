@@ -12,13 +12,17 @@ class Cart extends React.Component {
       console.log(index)
       let price = parseFloat(product.product.price);
       let quantity = parseInt(product.quantity);
+      if(quantity > 8) {
+        quantity = 8;
+        alert("If you are purchasing in bulk, please contact our customer service for discounted prices.")
+      }
       let amount = price * quantity;
       subtotal = subtotal + amount;
       if (subtotal >= 40) {delivery = 0;};
       gst = (subtotal * 0.07);
       total =(subtotal + gst + delivery);
       return (
-        <tr>
+        <tr key = {index}>
            <td><img src = {product.product.photo_url} /></td>
            <td>{product.product.name}</td>
            <td>
@@ -28,6 +32,10 @@ class Cart extends React.Component {
                 <option  value="2">2</option>
                 <option  value="3">3</option>
                 <option  value="4">4</option>
+                <option  value="5">5</option>
+                <option  value="6">6</option>
+                <option  value="7">7</option>
+                <option  value="8">8</option>
               </select> 
            </td>
            <td>${price}</td>

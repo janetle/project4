@@ -3,7 +3,6 @@ import React from 'react';
 import Slider from "react-slick";
 
 function Products (props) {
-  
   const settings = {
     dots: true,
     infinite: true,
@@ -11,7 +10,7 @@ function Products (props) {
     slidesToShow: 3,
     slidesToScroll: 3
   };
-    
+  
   const productList = props.products.map((product,index)=> {
     return (
 
@@ -25,6 +24,7 @@ function Products (props) {
           <p className = "item-desc">{product.description.substring(0,40)}...</p>
           <p>${product.price}</p>
           <p><button id = {product.id} onClick ={props.addCart}>Add to cart</button></p>
+
         </div>
       </div>
       

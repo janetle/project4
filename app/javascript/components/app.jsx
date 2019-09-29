@@ -13,8 +13,6 @@ import Tea from './tea';
 import CurrentTea from './tea_cate';
 import About from './about';
 
-
-
 const initalState = {
       error: null,
       isLoaded: false,
@@ -35,13 +33,11 @@ const initalState = {
       subtotal: 0,
       searchWord: null,
       quantity: 1
-    
+      
     };
-
 
 class App extends React.Component {
   constructor() {
-
     super();
     this.state = initalState;
     this.changeHandler = this.changeHandler.bind(this);
@@ -56,20 +52,19 @@ class App extends React.Component {
     this.removeItem = this.removeItem.bind(this);
     this.changeQuantity = this.changeQuantity.bind(this);
     this.allProducts = this.allProducts.bind(this);
-  }
+    this.reset = this.reset.bind(this);
+  };
   
   componentDidMount() {
     fetch('/products.json')         //fetch all teas
       .then(res => res.json())
       .then(
         (result) => {
-        	
           this.setState({
             isLoaded: true,
             products: result
           });
         },
-        
         (error) => {
           this.setState({
             isLoaded: true,
@@ -79,10 +74,8 @@ class App extends React.Component {
       )
       .then(fetch('/teas/index')      //fetch categories
           .then(res => res.json())
-
           .then(
             (result) => {
-              
               this.setState({
                 isLoaded: true,
                 tea: result
@@ -96,33 +89,29 @@ class App extends React.Component {
             }
           ))
   } 
-
-  home(event) {                //back to main page
-    
-    this.setState({
-          searchOn: false,
-          isCartClicked: false,
-          isCurrentItem: false,
-          isTeaClicked: false,
-          isAllProduct: false,
-          isCurrentTea: false
-    })
-  };
-  
-  selectTea(event) {          // to Category page
+  reset() {
     this.setState({
       searchOn: false,
       isCartClicked: false,
       isCurrentItem: false,
-      isCurrentTea: false,
+      isTeaClicked: false,
       isAllProduct: false,
-      isTeaClicked: true
-
+      isCurrentTea: false
     })
+  };
+
+  home(event) {  
+    const reset = this.reset;
+    reset();
+  };
+  
+  selectTea(event) { 
+    const reset = this.reset; 
+    reset()
+    this.setState({isTeaClicked: true})
   }
 
   changeHandler(event) {                   //search Input
-    console.log(event.target.value)
     this.setState({
       searchWord: event.target.value,
       searchResult: []
@@ -136,99 +125,74 @@ class App extends React.Component {
     let newSearchResult = [];
 
     products.map(product => {
-      if (searchWord === product.name || product.description.includes(searchWord)){
+      if (searchWord.toLowerCase() === product.name.toLowerCase() || product.description.includes(searchWord.toLowerCase())){
         newSearchResult.push(product);
       }
     });
-    this.setState({
-      searchOn:true,
-      isCartClicked: false,
-      isCurrentItem: false,
-      isCurrentTea: false,
-      isTeaClicked: true,
-      isAllProduct: false,
-      searchResult: newSearchResult
-    });
-
+    const reset = this.reset; 
+    reset()
+    this.setState({searchOn:true, searchResult: newSearchResult, });
+    console.log(this.state.searchResult.length)
   };
+
   addCart(event){ 
     let id = event.target.id;
     let addedItem = this.state.products.find(x => x.id === parseInt(id));
-    
     let quantity = this.state.quantity;
+    let isAdded = !this.state.isAdded;
     let cart = this.state.cart;
-    {
+    let index = cart.findIndex(x => x.product.id === parseInt(id))
+
+    if (index === -1){
       this.setState({
         cart: [{product: addedItem, quantity:quantity}, ...this.state.cart] 
-      })
-    // };
-  }
-};
-
+      });
+    } else {
+      cart[index].quantity  += parseInt(quantity);
+      this.setState({cart: cart});
+    }
+};;
 
   showCart(event){
-    this.setState ({
-      searchOn: false,
-      isCartClicked: false,
-      isCurrentItem: false,
-      isCurrentTea: false,
-      isTeaClicked: false,
-      isAllProduct: false,
-      isCartClicked: true
-    })
+    const reset = this.reset; 
+    reset();
+    this.setState({isCartClicked: true});
   };
 
   selectItem(event){             //show single item
     console.log("original product id: ", event.target.id)
     let id = event.target.id;
+    console.log(event.target)
     let selectedItem = this.state.products.find(x => x.id === parseInt(id));
+    console.log(id);
     let similarTaste = [];
     let teaId = selectedItem.tea.id
-    console.log("tea id: ", teaId)
     this.state.products.map(product => {
       if (product.tea.id === teaId){
         similarTaste.push(product)
       }
-    })
-    console.log(similarTaste)
-    this.setState({
-      searchOn: false,
-      isCartClicked: false,
-      isCurrentItem: true,
-      isCurrentTea: false,
-      isTeaClicked: false,
-      isAllProduct: false,
-      isCartClicked: false,
-      currentItem: selectedItem ,
-      similarTaste: similarTaste
-
     });
+    const reset = this.reset; 
+    reset();
+    this.setState({isCurrentItem: true, currentItem: selectedItem, similarTaste: similarTaste});
 
   };
 
   showCurrentTea(event) {       //show all the tea in one category
     event.preventDefault();  
     let id = parseInt(event.target.id);
-    console.log(id)
     let products = this.state.products;
-    console.log(products)
     let selectedTea = [];
     products.map (product => {
       if (product.tea.id === id) {
         selectedTea.push(product);
       }
     });
-    console.log(selectedTea)
-    this.setState ({
-      searchOn: false,
-      isCartClicked: false,
-      isCurrentItem: false,
-      isTeaClicked: false,
-      isCurrentTea: true,
-      isAllProduct: false,
-      currentTea: selectedTea
-    })
-  }
+    const reset = this.reset; 
+    reset();
+    this.setState({isCurrentTea: true, isCurrentTea: true,});
+  };
+
   selectOnChange(event) {
     let quantity = event.target.value;
     this.setState ({quantity: quantity})
@@ -238,16 +202,13 @@ class App extends React.Component {
     let id = event.target.id;
     this.state.cart.splice(id,1);
     this.setState ({ cart: this.state.cart});
-    // console.log("removing")
   };
 
   changeQuantity(event){
-    
     let newQuantity = event.target.value;
     let id = event.target.id;
     let currentCart = this.state.cart;
     currentCart[id].quantity = newQuantity;
-
     this.setState({
       cart: currentCart
     })
@@ -255,179 +216,149 @@ class App extends React.Component {
 
   allProducts(event) {
     event.preventDefault(); 
-    this.setState ({
-      searchOn: false,
-      isCartClicked: false,
-      isCurrentItem: false,
-      isCurrentTea: false,
-      isTeaClicked: false,
-      isCartClicked: false,
-      isAllProduct: true,
-
-    })
-
+    const reset = this.reset; 
+    reset();
+    this.setState({isAllProduct: true,});
   }
  	
   render() {
-	  	const { 
-        error, 
-        isLoaded, 
-        products, 
-        searchOn, 
-        searchResult, 
-        cart, 
-        isCartClicked,
-        isAllProduct,
-        currentItem,
-        currentTea,
-        isCurrentTea, 
-        isCurrentItem,
-        isTeaClicked,
-        similarTaste,
-        tea
-      } = this.state;
-
-	    if (error) {
-	      return <div>Error: {error.message}</div>;
-	    } else if (!isLoaded) {
-	      return <div>Loading...</div>;
-	    } else if (searchOn){
+  	const { 
+      error, 
+      isLoaded, 
+      products, 
+      searchOn,
+      searchWord, 
+      searchResult, 
+      cart, 
+      isCartClicked,
+      isAllProduct,
+      currentItem,
+      currentTea,
+      isCurrentTea, 
+      isCurrentItem,
+      isTeaClicked,
+      similarTaste,
+      tea
+      
+    } = this.state;
+    const header = () =>{
+      return(
+        <Header home = {this.home} cart ={cart} 
+                showCart = {this.showCart} 
+                submitHandler={this.submitHandler} 
+                changeHandler={this.changeHandler}
+                selectTea ={this.selectTea} 
+                allProducts = { this.allProducts} />
+                
+        )
+    };
+    const displayCart = () => {
+      return(
+        <Cart cart= {cart} removeItem = {this.removeItem}
+              changeQuantity = {this.changeQuantity}
+              allProducts = {this.allProducts} />
+        )
+    };
+    const displayItem = () => {
+      return (
+        <Item currentItem= {currentItem} 
+              similarTaste = {similarTaste} 
+              addCart = {this.addCart} 
+              selectItem = {this.selectItem}
+              selectOnChange = {this.selectOnChange}/>
+        )
+    };
+    const displayAllProducts = () => {
+      return (
+        <AllProducts
+            products = {this.state.products}  
+            addCart = {this.addCart} 
+            selectItem = {this.selectItem}
+            selectOnChange= {this.selectOnChange} />
+        )
+    };
+    const displayProducts = () => {
+      
+      return (
+        <Products 
+            products = {products}  
+            addCart = {this.addCart} 
+            selectItem = {this.selectItem}
+            selectOnChange= {this.selectOnChange}/>
+             
+        )
+    };
+    if (error) {
+      return <div>Error: {error.message}</div>;
+    } else if (!isLoaded) {
+        return <div>Loading...</div>;
+    
+    } else if (searchOn && searchWord.length > 0 ) {
+      return (
+        <div>
+          {header()}
+          <Banner />
+          <Search  addCart = {this.addCart} 
+                   selectItem = {this.selectItem}
+                   searchResult = {searchResult}/>
+          <Footer/>
+        </div>
+      );
+       
+    } else if (isCartClicked){
         return (
           <div>
-            <Header 
-                home = {this.home} cart ={cart} 
-                showCart = {this.showCart} 
-                submitHandler={this.submitHandler} 
-                changeHandler={this.changeHandler}
-                selectTea ={this.selectTea} />
-            
-            <Banner/>
-            <Search  addCart = {this.addCart} 
-                      selectItem = {this.selectItem}
-                     searchResult = {searchResult}/>
-           
-            <Mailer/>
+            {header()}
+            {displayCart()}
             <Footer/>
           </div>
-        );
-      } else if (isCartClicked){
-            return (
-               <div>
-                <Header 
-                home = {this.home} cart ={cart} 
-                showCart = {this.showCart} 
-                submitHandler={this.submitHandler} 
-                changeHandler={this.changeHandler}
-                selectTea ={this.selectTea} 
-                allProducts = { this.allProducts} />
-                <Cart cart= {cart} removeItem = {this.removeItem}
-                      changeQuantity = {this.changeQuantity}
-                      allProducts = {this.allProducts} />
-                <Footer/>
-
-              </div>
-              );
-         
-      } else if (isCurrentItem){
-          return(
-            <div>
-              <Header 
-                home = {this.home} cart ={cart} 
-                showCart = {this.showCart} 
-                submitHandler={this.submitHandler} 
-                changeHandler={this.changeHandler}
-                selectTea ={this.selectTea} 
-                allProducts = { this.allProducts} />
-              <Item 
-                currentItem= {currentItem} 
-                similarTaste = {similarTaste} 
-                addCart = {this.addCart} 
-                selectItem = {this.selectItem}
-                selectOnChange = {this.selectOnChange}/>
-                
-              <Footer/>
+          );
+    } else if (isCurrentItem){
+        return(
+          <div>
+             {header()}
+             {displayItem()}
+            <Footer/>
+        </div>
+        ); 
+    } else if(isTeaClicked){
+        return(
+          <div>
+            {header()}
+            <Tea tea ={tea} showCurrentTea = {this.showCurrentTea}/>
           </div>
           );
-      } else if(isTeaClicked){
-          return(
-            <div>
-              <Header 
-                home = {this.home} cart ={cart} 
-                showCart = {this.showCart} 
-                submitHandler={this.submitHandler} 
-                changeHandler={this.changeHandler}
-                selectTea ={this.selectTea} 
-                allProducts = { this.allProducts} />
-              <Tea tea ={tea} showCurrentTea = {this.showCurrentTea}/>
-
-            </div>
-            );
-      } else if(isCurrentTea) {
-          return (
-            <div>
-              <Header 
-                home = {this.home} cart ={cart} 
-                showCart = {this.showCart} 
-                submitHandler={this.submitHandler} 
-                changeHandler={this.changeHandler}
-                selectTea ={this.selectTea} 
-                allProducts = { this.allProducts} />
-              <CurrentTea selectItem = {this.selectItem} 
-                currentTea = {currentTea} addCart = {this.addCart}/>
-              <Footer/>
-            </div>
-            );
-      } else if(isAllProduct){
-          return(
-            <div >
-              <Header 
-                  home = {this.home} cart ={cart} 
-                  showCart = {this.showCart} 
-                  submitHandler={this.submitHandler} 
-                  changeHandler={this.changeHandler}
-                  selectTea ={this.selectTea} 
-                  allProducts = { this.allProducts} />
-              
-
-              <AllProducts
-                  products = {this.state.products}  
-                  addCart = {this.addCart} 
-                  selectItem = {this.selectItem}
-                  selectOnChange= {this.selectOnChange} />
-           
-              <Footer/>
-            </div>
-            );
-
-      } else {
-
-		    return (
-		      <div>
-		      	<Header 
-                home = {this.home} cart ={cart} 
-                showCart = {this.showCart} 
-                submitHandler={this.submitHandler} 
-                changeHandler={this.changeHandler}
-                selectTea ={this.selectTea} 
-                allProducts = { this.allProducts} />
-		      	<Banner/>
-            <div className= "product-container">
-  		      	<Products 
-                  products = {this.state.products}  
-                  addCart = {this.addCart} 
-                  selectItem = {this.selectItem}
-                  selectOnChange= {this.selectOnChange} />
-            </div>
-            <About />
-		      	<Mailer/>
-		      	<Footer/>
-
-		      </div>
-		    );
-	  	};
-    }
-}	 
-
-
+    } else if(isCurrentTea) {
+        return (
+          <div>
+            {header()}
+            <CurrentTea selectItem = {this.selectItem} 
+              currentTea = {currentTea} addCart = {this.addCart}/>
+            <Footer/>
+          </div>
+          );
+    } else if(isAllProduct){
+        return(
+          <div >
+            {header()}
+            {displayAllProducts ()}
+          </div>
+          );
+    } else {
+	    return (
+	      <div className = "container-fluid">
+	      	{header()}
+	      	<Banner/>
+          <div className= "product-container">
+		        {displayProducts()}
+          </div>
+          <About />
+	      	<Mailer/>
+	      	<Footer/>
+	      </div>
+	    );
+  	};
+  }
+ }
 
 export default App;

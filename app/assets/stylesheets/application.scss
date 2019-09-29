@@ -40,6 +40,12 @@ body{
 
     
 }
+.searchInput{
+  all: unset;
+}
+.imgbutton{
+    all: unset;
+}
 
 .navbar{
     // padding-bottom:20px;
@@ -96,8 +102,15 @@ body{
     margin-bottom: 40px;
 
 }
-
-
+.slick-next:before, .slick-prev:before {
+    font-size: 30px !important;
+    line-height: 1;
+    opacity: .5!important;
+    color: #004d40 !important;
+}
+.slick-prev {
+    left: -40px !important;
+}
 
 .photo{
 
@@ -220,7 +233,8 @@ input.mailer-input{
 .search-item {
     margin: 5px auto;
     display:flex;
-    justify-content: space-evenly
+    justify-content: space-evenly;
+   flex-wrap: wrap;
 }
  .banner-heading {
     font-size: 60px;
@@ -348,4 +362,11 @@ input.mailer-input{
  };
 
  
+}
+.addedToCart {
+    display:inline-block;
+    padding-right: 5px;
+}
+.add {
+    display:none;
 }

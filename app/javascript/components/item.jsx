@@ -14,7 +14,7 @@ function SimilarTaste (props){
         return (
           	<div  key = {index} className = "similarTaste" >
               <div  className = "photo-similar">
-                <p><img src= {product.photo_url} id = {product.id} onClick ={props.selectItem}/> <br/>
+                <p><img className = "img-fluid" src= {product.photo_url} id = {product.id} onClick ={props.selectItem}/> <br/>
                 <strong>{product.name}</strong></p>
               </div>
             </div>
@@ -35,7 +35,7 @@ function Item (props) {
 	return (
 		<div className = "outer"> 
 			<div className = "wrapper">
-				<div className = "image"><img src= {props.currentItem.photo_url} /></div>
+				<div className = "image"><img className = "img-fluid" src= {props.currentItem.photo_url} /></div>
 				<div className = "info">
 					<p><strong>{props.currentItem.name}</strong></p>
 					<p> ${props.currentItem.price}</p>
