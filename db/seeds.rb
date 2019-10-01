@@ -192,7 +192,7 @@ products_name = [
 	],
 	[
 		"Jasmine Bancha Tea",
-		"/jasmin/Jasmin_bancha.jpeg",
+		"/jasmin/jasmine_bancha.jpeg",
 		"Being a new take on Jasmine teas, our Japanese Bancha green tea is blended with fresh Jasmine buds, which is great for those who want a more green tea taste, followed with the jasmine in the aftertaste.", 
 		25.00, 
 		2, 

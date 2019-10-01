@@ -190,7 +190,7 @@ class App extends React.Component {
     });
     const reset = this.reset; 
     reset();
-    this.setState({isCurrentTea: true, isCurrentTea: true,});
+    this.setState({isCurrentTea: true, currentTea: selectedTea});
   };
 
   selectOnChange(event) {
@@ -332,7 +332,7 @@ class App extends React.Component {
         return (
           <div>
             {header()}
-            <CurrentTea selectItem = {this.selectItem} 
+            <CurrentTea  selectItem = {this.selectItem} 
               currentTea = {currentTea} addCart = {this.addCart}/>
             <Footer/>
           </div>

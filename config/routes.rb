@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'mailer/index'
+  get 'mailer/new'
+  get 'mailer/create'
   resources :customers
   get 'charges/new'
   get 'charges/create'

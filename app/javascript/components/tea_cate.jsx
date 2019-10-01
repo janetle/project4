@@ -2,7 +2,9 @@
 import React from 'react';
 
 function CurrentTea(props){
-  const teaList = props.tea.map((product,index)=> {
+
+
+  const teaList = props.currentTea.map((product,index)=> {
     return (
         
       <div className = "item" >
