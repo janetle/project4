@@ -32,6 +32,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 # devise for authentication
 gem "devise", ">= 4.7.1"
+gem "rubyzip", ">= 1.3.0"
 
 # stripe for payment
 gem 'stripe'
