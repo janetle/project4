@@ -96,7 +96,8 @@ class App extends React.Component {
       isCurrentItem: false,
       isTeaClicked: false,
       isAllProduct: false,
-      isCurrentTea: false
+      isCurrentTea: false,
+      quantity: 1
     })
   };
 
